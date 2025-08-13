@@ -1,7 +1,7 @@
 use clap::Parser;
 
 #[derive(Parser, Debug)]
-#[command(name="gk", about="geneious killer", version="1.0")]
+#[command(name="partition", about="partition 2 files", version="1.0")]
 struct Cli {
     #[arg(short, long)]
     name: String,
@@ -9,6 +9,7 @@ struct Cli {
     #[arg(short, long, default_value_t=1)]
     count: u8,
 }
+
 
 fn main() {
     let args = Cli::parse();
