@@ -1,20 +1,23 @@
-use clap::Parser;
+use clap::{Parser, ValueHint};
+use std::path::PathBuf;
 
 #[derive(Parser, Debug)]
 #[command(name="partition", about="partition 2 files", version="1.0")]
 struct Cli {
-    #[arg(short, long)]
-    name: String,
+    #[arg(value_name = "FILE_A",
+          value_hint = ValueHint::FilePath,
+          value_parser = clap::value_parser!(PathBuf))]
+    file_a: PathBuf,
 
-    #[arg(short, long, default_value_t=1)]
-    count: u8,
+    #[arg(value_name = "FILE_B",
+        value_hint = ValueHint::FilePath,
+        value_parser = clap::value_parser!(PathBuf))]
+    file_b: PathBuf,
 }
-
 
 fn main() {
     let args = Cli::parse();
 
-    for _ in 0..args.count {
-        println!("Hello, {}!", args.name)
-    }
+    println!("Hello, {} {}!", args.file_a.display(), args.file_b.display())
+
 }
