@@ -1,0 +1,4 @@
+ cargo new gk
+ cargo init gk
+ cargo run --name adrian
+ cargo run --bin partition -- --name atks --count 9
