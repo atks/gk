@@ -1,5 +1,7 @@
 use clap::{Parser, ValueHint};
 use std::path::PathBuf;
+use std::io::{BufRead, BufReader};
+use std::fs::File;
 
 #[derive(Parser, Debug)]
 #[command(name="partition", about="partition 2 files", version="1.0")]
@@ -18,8 +20,19 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
 
-    println!("Hello, {} {}!", args.file_a.display(), args.file_b.display())
+    println!("Hello, {} {}!", args.file_a.display(), args.file_b.display());
+    let file = File::open(&args.file_a).expect("Failed to open file A");
+    let reader = BufReader::new(file);
 
-    
+    for line in reader.lines() {
+        println!("{}", line.expect("Failed to read line"));
+    }
+
+    let file = File::open(&args.file_b).expect("Failed to open file A");
+    let reader = BufReader::new(file);
+
+    for line in reader.lines() {
+        println!("{}", line.expect("Failed to read line"));
+    }
 
 }
